@@ -8,8 +8,23 @@ module.exports = {
         return res.json(users);
     },
 
+    async detail(req, res){
+        const { user_id } = req.params;
+
+        const user = await connection('user')
+        .select('*')
+        .where('user_id', user_id)
+        .first();
+
+        return res.json(user);
+    },
+
     async create(req, res){
-        const { name, id_number, login, password, email, department_id } = req.body;
+        let { name, id_number, login, password, email, department_id } = req.body;
+
+        name = name.toUpperCase();
+        login = login.toUpperCase();
+        email = email.toLowerCase();
 
         const [user_id] = await connection('user').insert({
             name,
@@ -24,7 +39,7 @@ module.exports = {
     },
 
     async update(req, res){
-
+        res.send('NOT IMPLEMENTED USER UPDATE');
     },
 
 }

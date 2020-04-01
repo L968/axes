@@ -17,7 +17,7 @@ describe('USER', () => {
         const response = await request(app)
         .post('/user')
         .send({
-            name: "Lucas",
+            name: "Test",
             id_number: 999,
             login: "999",
             password: "testest",
