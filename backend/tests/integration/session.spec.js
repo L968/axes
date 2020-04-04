@@ -2,7 +2,7 @@ const request = require('supertest');
 const app = require('../../src/app');
 const connection = require('../../src/database/connection');
 
-describe('USER', () => {
+describe('SESSION', () => {
 
     beforeEach(async () => {
         await connection.migrate.latest();
@@ -12,28 +12,25 @@ describe('USER', () => {
         await connection.destroy();
     });
 
-    it('Should create a user', async () => {
+    it('Should create a session and return a token', async () => {
         const response = await request(app)
-        .post('/user')
+        .post('/session')
         .send({
-            name: "Test",
-            id_number: 999,
             login: "999",
-            password: "testest",
-            email: "test@test.com",
-            department_id: 9
+            password: "testest"
         });
 
         console.log(response.body);
-        expect(409, 201).toContain(response.status);
+        expect([200, 403]).toContain(response.status);
 
-        if (response.status === 201) {
+        if (response.status === 200) {
             expect(response.body).toHaveProperty('user_id');
+            expect(response.body).toHaveProperty('token');
             expect(Number.isInteger(response.body.user_id)).toBe(true);
         } else {
             expect(response.body).toHaveProperty('error');
-            expect(response.body.error)
         }
+
     });
 
 });
