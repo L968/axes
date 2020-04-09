@@ -1,25 +1,31 @@
 module.exports =
 {
-    development: {
+    development:
+    {
         dialect: 'sqlite',
         storage: './src/database/db.sqlite3',
-        define: {
+        define:
+        {
             timestamps: false,
             freezeTableName: true
         },
-        query: {
+        query:
+        {
             raw: true
         }
     },
 
-    test: {
+    test:
+    {
         dialect: 'sqlite',
         storage: './src/database/test.sqlite3',
-        define: {
+        define:
+        {
             timestamps: false,
             freezeTableName: true
         },
-        query: {
+        query:
+        {
             raw: true
         }
     },

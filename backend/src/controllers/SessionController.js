@@ -4,8 +4,7 @@ const jwt = require('jsonwebtoken');
 
 module.exports = {
 
-    async create(req, res)
-    {
+    async create(req, res) {
         try
         {
             let { login, password } = req.body;
@@ -17,8 +16,7 @@ module.exports = {
                 where: { login: login }
             });
 
-            if (!user || (user.password !== password))
-            {
+            if (!user || (user.password !== password)) {
                 return res.status(403).json({ error: "Your login credentials don't match an account in our system" });
             }
 

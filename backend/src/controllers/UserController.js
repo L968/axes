@@ -3,14 +3,12 @@ const User = require('../models/User');
 
 module.exports = {
 
-    async index(req, res)
-    {
+    async index(req, res) {
         try
         {
             const user = await User.findAll();
 
-            if (user.length === 0)
-            {
+            if (user.length === 0) {
                 return res.status(404).json({ error: "There are no users registered in the system" });
             }
 
@@ -23,16 +21,14 @@ module.exports = {
         }
     },
 
-    async detail(req, res)
-    {
+    async detail(req, res) {
         try
         {
             const { user_id } = req.params;
 
             const user = await User.findByPk(user_id);
 
-            if (!user)
-            {
+            if (!user) {
                 return res.status(404).json({ error: 'User not found' });
             }
 
@@ -45,8 +41,7 @@ module.exports = {
         }
     },
 
-    async create(req, res)
-    {
+    async create(req, res) {
         try
         {
             let { name, id_number, login, password, email, department_id } = req.body;
@@ -60,8 +55,7 @@ module.exports = {
                 where: { login: login }
             });
 
-            if (user)
-            {
+            if (user) {
                 return res.status(409).json({ error: 'This login is already in use.' });
             }
 
@@ -83,8 +77,7 @@ module.exports = {
         }
     },
 
-    async update(req, res)
-    {
+    async update(req, res) {
         try
         {
             res.send('NOT IMPLEMENTED USER UPDATE');
