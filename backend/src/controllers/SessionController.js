@@ -1,23 +1,36 @@
-const connection = require('../database/connection');
+const User = require('../models/User');
+const authConfig = require('../config/auth');
+const jwt = require('jsonwebtoken');
 
 module.exports = {
 
-    async create(req, res) {
-        let { login, password } = req.body;
+    async create(req, res)
+    {
+        try
+        {
+            let { login, password } = req.body;
 
-        login = login.toUpperCase();
+            login = login.toLowerCase();
 
-        const user = await connection('user')
-        .select('user_id', 'password')
-        .where('login', login)
-        .first();
+            const user = await User.findOne({
+                attributes: ['user_id', 'password'],
+                where: { login: login }
+            });
 
-        if (!user) {
-            return res.status(400).json({ error: "Your login credentials don't match an account in our system" });
+            if (!user || (user.password !== password))
+            {
+                return res.status(403).json({ error: "Your login credentials don't match an account in our system" });
+            }
+
+            const token = jwt.sign({ user_id: user.user_id }, authConfig.secret, { expiresIn: 86400 });
+
+            return res.status(200).json({ user_id: user.user_id, token: token });
         }
-
-        const { user_id } = user;
-        return res.status(200).json({ user_id });
+        catch (error)
+        {
+            console.log(error);
+            return res.status(500).json({ error: 'An unexpected error has occured, please try again later.' });
+        }
     },
 
 }
