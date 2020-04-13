@@ -9,7 +9,7 @@ module.exports = {
             const user = await User.findAll();
 
             if (user.length === 0) {
-                return res.status(404).json({ error: "There are no users registered in the system" });
+                return res.status(404).json({ message: "There are no users registered in the system" });
             }
 
             return res.json(user);
@@ -17,7 +17,7 @@ module.exports = {
         catch (error)
         {
             console.log(error);
-            return res.status(500).json({ error: 'An unexpected error has occured, please try again later.' });
+            return res.status(500).json({ message: 'An unexpected error has occured, please try again later' });
         }
     },
 
@@ -29,7 +29,7 @@ module.exports = {
             const user = await User.findByPk(user_id);
 
             if (!user) {
-                return res.status(404).json({ error: 'User not found' });
+                return res.status(404).json({ message: 'User not found' });
             }
 
             return res.json(user);
@@ -37,7 +37,7 @@ module.exports = {
         catch (error)
         {
             console.log(error);
-            return res.status(500).json({ error: 'An unexpected error has occured, please try again later.' });
+            return res.status(500).json({ message: 'An unexpected error has occured, please try again later' });
         }
     },
 
@@ -56,7 +56,7 @@ module.exports = {
             });
 
             if (user) {
-                return res.status(409).json({ error: 'This login is already in use.' });
+                return res.status(409).json({ message: 'This login is already in use' });
             }
 
             const response = await User.create({
@@ -73,7 +73,7 @@ module.exports = {
         catch (error)
         {
             console.log(error);
-            return res.status(500).json({ error: 'An unexpected error has occured, please try again later.' });
+            return res.status(500).json({ message: 'An unexpected error has occured, please try again later' });
         }
     },
 
@@ -85,7 +85,7 @@ module.exports = {
         catch (error)
         {
             console.log(error);
-            return res.status(500).json({ error: 'An unexpected error has occured, please try again later.' });
+            return res.status(500).json({ message: 'An unexpected error has occured, please try again later' });
         }
     },
 

@@ -17,7 +17,7 @@ module.exports = {
             });
 
             if (!user || (user.password !== password)) {
-                return res.status(403).json({ error: "Your login credentials don't match an account in our system" });
+                return res.status(403).json({ message: "Your login credentials don't match an account in our system" });
             }
 
             const token = jwt.sign({ user_id: user.user_id }, authConfig.secret, { expiresIn: 86400 });
@@ -27,7 +27,7 @@ module.exports = {
         catch (error)
         {
             console.log(error);
-            return res.status(500).json({ error: 'An unexpected error has occured, please try again later.' });
+            return res.status(500).json({ message: 'An unexpected error has occured, please try again later' });
         }
     },
 
