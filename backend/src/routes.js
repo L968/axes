@@ -20,4 +20,6 @@ routes.post('/user', celebrate(UserValidator.create), UserController.create);
 
 routes.post('/session', celebrate(SessionValidator.create), SessionController.create);
 
+routes.get('/authenticate', authenticate, (req, res) => res.json({ isAuthenticated: true, user_id: req.user_id }));
+
 module.exports = routes;
