@@ -6,8 +6,9 @@ module.exports =
         storage: './src/database/db.sqlite3',
         define:
         {
-            timestamps: false,
-            freezeTableName: true
+            freezeTableName: true,
+            createdAt: 'created_at',
+            updatedAt: 'updated_at'
         },
         query:
         {
@@ -21,8 +22,9 @@ module.exports =
         storage: './src/database/test.sqlite3',
         define:
         {
-            timestamps: false,
-            freezeTableName: true
+            freezeTableName: true,
+            createdAt: 'created_at',
+            updatedAt: 'updated_at'
         },
         query:
         {

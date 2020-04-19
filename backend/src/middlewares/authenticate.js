@@ -28,7 +28,7 @@ module.exports = (req, res, next) => {
 	}
 	catch (error)
 	{
-		console.log(error);
+		logger.error(error);
 		return res.status(500).json({
 			isAuthenticated: false,
 			message: 'An unexpected error has occured, please try again later'
