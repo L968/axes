@@ -26,7 +26,7 @@ module.exports = {
         }
         catch (error)
         {
-            console.log(error);
+            logger.error(error);
             return res.status(500).json({ message: 'An unexpected error has occured, please try again later' });
         }
     },

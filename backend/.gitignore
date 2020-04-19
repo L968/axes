@@ -1,3 +1,5 @@
 /node_modules
+/src/config/auth.json.
+
 *.sqlite3
-/src/config/auth.json
+*.log

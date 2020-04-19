@@ -6,6 +6,8 @@ const config = process.env.NODE_ENV === 'test' ? dbConfigs.test : dbConfigs.deve
 const connection = new Sequelize(config);
 
 const User = require('../models/User');
+const Resource = require('../models/Resource');
 User.init(connection);
+Resource.init(connection);
 
 module.exports = connection;

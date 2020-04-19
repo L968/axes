@@ -1,22 +1,23 @@
 const connection = require('../database/connection');
 const User = require('../models/User');
+const logger = require('../logs/logger');
 
 module.exports = {
 
     async index(req, res) {
         try
         {
-            const user = await User.findAll();
+            const users = await User.findAll();
 
-            if (user.length === 0) {
+            if (users.length === 0) {
                 return res.status(404).json({ message: "There are no users registered in the system" });
             }
 
-            return res.json(user);
+            return res.json(users);
         }
         catch (error)
         {
-            console.log(error);
+            logger.error(error);
             return res.status(500).json({ message: 'An unexpected error has occured, please try again later' });
         }
     },
@@ -36,7 +37,7 @@ module.exports = {
         }
         catch (error)
         {
-            console.log(error);
+            logger.error(error);
             return res.status(500).json({ message: 'An unexpected error has occured, please try again later' });
         }
     },
@@ -72,7 +73,7 @@ module.exports = {
         }
         catch (error)
         {
-            console.log(error);
+            logger.error(error);
             return res.status(500).json({ message: 'An unexpected error has occured, please try again later' });
         }
     },
@@ -84,7 +85,7 @@ module.exports = {
         }
         catch (error)
         {
-            console.log(error);
+            logger.error(error);
             return res.status(500).json({ message: 'An unexpected error has occured, please try again later' });
         }
     },
