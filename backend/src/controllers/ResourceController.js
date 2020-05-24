@@ -1,5 +1,6 @@
 const Resource = require('../models/Resource');
 const logger = require('../logs/logger');
+const constants = require('../constants');
 
 module.exports = {
 
@@ -17,7 +18,7 @@ module.exports = {
         catch (error)
         {
             logger.error(error);
-            return res.status(500).json({ message: 'An unexpected error has occured, please try again later' });
+            return res.status(500).json({ message: constants.ERROR_MESSAGE });
         }
     },
 
@@ -42,7 +43,7 @@ module.exports = {
         catch (error)
         {
             logger.error(error);
-            return res.status(500).json({ message: 'An unexpected error has occured, please try again later' });
+            return res.status(500).json({ message: constants.ERROR_MESSAGE });
         }
     },
 
@@ -80,7 +81,7 @@ module.exports = {
         catch (error)
         {
             logger.error(error);
-            return res.status(500).json({ message: 'An unexpected error has occured, please try again later' });
+            return res.status(500).json({ message: constants.ERROR_MESSAGE });
         }
     },
 
