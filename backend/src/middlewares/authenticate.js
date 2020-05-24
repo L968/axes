@@ -35,5 +35,4 @@ module.exports = (req, res, next) => {
 			message: constants.ERROR_MESSAGE
 		});
 	}
-
-};
+}
