@@ -3,7 +3,7 @@ const { Model, DataTypes } = require('sequelize');
 class User extends Model {
     static init(connection){
         super.init({
-            user_id: {
+            id: {
                 type: DataTypes.INTEGER,
                 primaryKey: true
             },

@@ -5,7 +5,7 @@ module.exports = {
     return queryInterface.sequelize.query(`
       create table \`user\`
       (
-        \`user_id\`             INTEGER      NOT NULL PRIMARY KEY AUTOINCREMENT,
+        \`id\`                  INTEGER      NOT NULL PRIMARY KEY AUTOINCREMENT,
         \`name\`                VARCHAR(255) NOT NULL,
         \`id_number\`           FLOAT        NOT NULL,
         \`login\`               VARCHAR(255) NOT NULL UNIQUE,

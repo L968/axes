@@ -7,7 +7,7 @@ log4js.configure({
             filename: "./src/logs/log-exception.log",
             layout: {
                 type: "pattern",
-                pattern: "%d{dd/MM/yyyy hh\:mm\:ss} %p at line %l:%o - %m%n"
+                pattern: "%d{dd/MM/yyyy hh\:mm\:ss} %p at %f:%l:%o%n %m%n"
             }
         }
     },

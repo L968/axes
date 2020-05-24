@@ -3,15 +3,15 @@ const { Model, DataTypes } = require('sequelize');
 class Resource extends Model {
     static init(connection){
         super.init({
-            reso_id: {
+            id: {
                 type: DataTypes.INTEGER,
                 primaryKey: true
             },
-            name:           DataTypes.STRING,
-            description:    DataTypes.TEXT,
-            type:           DataTypes.INTEGER,
-            father_reso_id: DataTypes.STRING,
-            active:         DataTypes.BOOLEAN
+            name:               DataTypes.STRING,
+            description:        DataTypes.TEXT,
+            type_id:            DataTypes.INTEGER,
+            parent_resource_id: DataTypes.STRING,
+            active:             DataTypes.BOOLEAN
         }, { sequelize: connection });
     }
 }

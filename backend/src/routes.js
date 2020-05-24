@@ -13,14 +13,16 @@ const SessionController = require('./controllers/SessionController');
 // Validators
 const UserValidator = require('./validators/UserValidator');
 const SessionValidator = require('./validators/SessionValidator');
+const ResourceValidator = require('./validators/ResourceValidator');
 
 // Routes
 routes.get('/user', UserController.index);
-routes.get('/user/:user_id', celebrate(UserValidator.detail), UserController.detail);
+routes.get('/user/:id', celebrate(UserValidator.detail), UserController.detail);
 routes.post('/user', celebrate(UserValidator.create), UserController.create);
 
 routes.get('/resource', ResourceController.index);
-routes.post('/resource', ResourceController.create);
+routes.post('/resource', authenticate, celebrate(ResourceValidator.create), ResourceController.create);
+routes.put('/resource/:id', authenticate, celebrate(ResourceValidator.update), ResourceController.update);
 
 routes.post('/session', celebrate(SessionValidator.create), SessionController.create);
 

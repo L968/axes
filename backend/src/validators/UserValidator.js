@@ -14,7 +14,7 @@ module.exports = {
 
     detail: {
         [Segments.PARAMS]: Joi.object().keys({
-            user_id: Joi.number().integer().required()
+            id: Joi.number().integer().required()
         })
     },
 

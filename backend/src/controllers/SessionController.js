@@ -1,4 +1,5 @@
 const User = require('../models/User');
+const logger = require('../logs/logger');
 const authConfig = require('../config/auth');
 const jwt = require('jsonwebtoken');
 
@@ -12,7 +13,7 @@ module.exports = {
             login = login.toLowerCase();
 
             const user = await User.findOne({
-                attributes: ['user_id', 'password'],
+                attributes: ['id', 'password'],
                 where: { login: login }
             });
 
@@ -20,9 +21,9 @@ module.exports = {
                 return res.status(403).json({ message: "Your login credentials don't match an account in our system" });
             }
 
-            const token = jwt.sign({ user_id: user.user_id }, authConfig.secret, { expiresIn: 86400 });
+            const token = jwt.sign({ id: user.id }, authConfig.secret, { expiresIn: 86400 });
 
-            return res.status(200).json({ user_id: user.user_id, token: token });
+            return res.json({ id: user.id, token: token });
         }
         catch (error)
         {

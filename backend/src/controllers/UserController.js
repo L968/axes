@@ -1,4 +1,3 @@
-const connection = require('../database/connection');
 const User = require('../models/User');
 const logger = require('../logs/logger');
 
@@ -25,9 +24,9 @@ module.exports = {
     async detail(req, res) {
         try
         {
-            const { user_id } = req.params;
+            const { id } = req.params;
 
-            const user = await User.findByPk(user_id);
+            const user = await User.findByPk(id);
 
             if (!user) {
                 return res.status(404).json({ message: 'User not found' });
@@ -52,7 +51,7 @@ module.exports = {
             email = email.toLowerCase();
 
             const user = await User.findOne({
-                attributes: ['user_id'],
+                attributes: ['id'],
                 where: { login: login }
             });
 
@@ -69,7 +68,7 @@ module.exports = {
                 department_id
             });
 
-            return res.status(201).json({ user_id: response.null });
+            return res.status(201).json({ id: response.null });
         }
         catch (error)
         {

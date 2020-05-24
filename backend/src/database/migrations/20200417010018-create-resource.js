@@ -5,14 +5,14 @@ module.exports = {
     return queryInterface.sequelize.query(`
       create table \`resource\`
       (
-        \`reso_id\`        INTEGER      NOT NULL PRIMARY KEY AUTOINCREMENT,
-        \`name\`           VARCHAR(255) NOT NULL UNIQUE,
-        \`description\`    TEXT,
-        \`type\`           INTEGER      NOT NULL,
-        \`father_reso_id\` VARCHAR(255),
-        \`active\`         BOOLEAN      NOT NULL CHECK (active IN (0,1)) DEFAULT 1,
-        \`created_at\`     DATE         NOT NULL,
-        \`updated_at\`     DATE         NOT NULL
+        \`id\`                 INTEGER      NOT NULL PRIMARY KEY AUTOINCREMENT,
+        \`name\`               VARCHAR(255) NOT NULL UNIQUE,
+        \`description\`        TEXT,
+        \`type_id\`            INTEGER      NOT NULL,
+        \`parent_resource_id\` INTEGER,
+        \`active\`             BOOLEAN      NOT NULL CHECK (active IN (0,1)) DEFAULT 1,
+        \`created_at\`         DATE         NOT NULL,
+        \`updated_at\`         DATE         NOT NULL
       );
     `);
   },
@@ -20,4 +20,4 @@ module.exports = {
   down: (queryInterface, Sequelize) => {
     return queryInterface.dropTable('resource');
   }
-};
+}
