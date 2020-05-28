@@ -61,7 +61,7 @@ module.exports = {
 
             if (resource.name !== req.body.name) {
                 if (await nameIsAlreadyUsed(req.body.name)) {
-                    return res.status(409).json({ message: "There's already a resource with that name" });
+                    return res.status(409).json({ message: "There's already a resource with this name" });
                 }
             }
 
@@ -88,17 +88,10 @@ module.exports = {
 }
 
 async function nameIsAlreadyUsed(name) {
-    try
-    {
-        const response = await Resource.findOne({
-            attributes: ['id'],
-            where: { name: name }
-        });
+    const response = await Resource.findOne({
+        attributes: ['id'],
+        where: { name: name }
+    });
 
-        return response == null ? false : true;;
-    }
-    catch (error)
-    {
-        throw error;
-    }
+    return response == null ? false : true;;
 }
