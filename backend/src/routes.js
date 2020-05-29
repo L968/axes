@@ -9,6 +9,7 @@ const authenticate = require('./middlewares/authenticate');
 const UserController = require('./controllers/UserController');
 const ResourceController = require('./controllers/ResourceController');
 const SessionController = require('./controllers/SessionController');
+const RequestController = require('./controllers/RequestController');
 
 // Validators
 const UserValidator = require('./validators/UserValidator');
@@ -23,6 +24,8 @@ routes.post('/user', celebrate(UserValidator.create), UserController.create);
 routes.get('/resource', ResourceController.index);
 routes.post('/resource', authenticate, celebrate(ResourceValidator.create), ResourceController.create);
 routes.put('/resource/:id', authenticate, celebrate(ResourceValidator.update), ResourceController.update);
+
+routes.post('/request', RequestController.create);
 
 routes.post('/session', celebrate(SessionValidator.create), SessionController.create);
 
