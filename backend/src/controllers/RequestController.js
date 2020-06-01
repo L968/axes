@@ -1,8 +1,6 @@
 const connection = require('../database/connection');
 const Request = require('../models/Request');
 const Request_Resources = require('../models/Request_Resources');
-const logger = require('../logs/logger');
-const constants = require('../constants');
 
 module.exports = {
 
@@ -43,8 +41,7 @@ module.exports = {
                 transaction.rollback();
             }
 
-            logger.error(error);
-            return res.status(500).json({ message: constants.ERROR_MESSAGE });
+            throw error;
         }
     },
 

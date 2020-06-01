@@ -1,33 +1,25 @@
 const express = require('express');
 const routes = express.Router();
-const { celebrate } = require('celebrate');
+
+const requireDir = require('require-dir');
+const controllers = requireDir('./controllers');
+const validators = requireDir('./validators');
 
 // Middlewares
 const authenticate = require('./middlewares/authenticate');
 
-// Controllers
-const UserController = require('./controllers/UserController');
-const ResourceController = require('./controllers/ResourceController');
-const SessionController = require('./controllers/SessionController');
-const RequestController = require('./controllers/RequestController');
-
-// Validators
-const UserValidator = require('./validators/UserValidator');
-const SessionValidator = require('./validators/SessionValidator');
-const ResourceValidator = require('./validators/ResourceValidator');
-
 // Routes
-routes.get('/user', UserController.index);
-routes.get('/user/:id', celebrate(UserValidator.detail), UserController.detail);
-routes.post('/user', celebrate(UserValidator.create), UserController.create);
+routes.get('/user', controllers.UserController.index);
+routes.get('/user/:id', validators.UserValidator.detail, controllers.UserController.detail);
+routes.post('/user', validators.UserValidator.create, controllers.UserController.create);
 
-routes.get('/resource', ResourceController.index);
-routes.post('/resource', authenticate, celebrate(ResourceValidator.create), ResourceController.create);
-routes.put('/resource/:id', authenticate, celebrate(ResourceValidator.update), ResourceController.update);
+routes.get('/resource', controllers.ResourceController.index);
+routes.post('/resource', authenticate, validators.ResourceValidator.create, controllers.ResourceController.create);
+routes.put('/resource/:id', authenticate, validators.ResourceValidator.update, controllers.ResourceController.update);
 
-routes.post('/request', RequestController.create);
+routes.post('/request', controllers.RequestController.create);
 
-routes.post('/session', celebrate(SessionValidator.create), SessionController.create);
+routes.post('/session', validators.SessionValidator.create, controllers.SessionController.create);
 
 routes.get('/authenticate', authenticate, (req, res) => res.json({ isAuthenticated: true, user_id: req.user_id }));
 

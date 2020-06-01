@@ -1,6 +1,5 @@
 const jwt = require('jsonwebtoken');
 const authConfig = require('../config/auth.json');
-const constants = require('../constants');
 
 module.exports = (req, res, next) => {
 	try
@@ -29,10 +28,9 @@ module.exports = (req, res, next) => {
 	}
 	catch (error)
 	{
-		logger.error(error);
 		return res.status(500).json({
 			isAuthenticated: false,
-			message: constants.ERROR_MESSAGE
+			message: 'An unexpected error has occured, please try again later'
 		});
 	}
 }
