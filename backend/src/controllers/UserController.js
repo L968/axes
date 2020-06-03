@@ -31,15 +31,6 @@ module.exports = {
         login = login.toLowerCase();
         email = email.toLowerCase();
 
-        const user = await User.findOne({
-            attributes: ['id'],
-            where: { login: login }
-        });
-
-        if (user) {
-            return res.status(409).json({ message: 'This login is already in use' });
-        }
-
         const response = await User.create({
             name,
             id_number,

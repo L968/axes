@@ -1,11 +1,21 @@
 const Joi = require('@hapi/joi');
+const User = require('../models/User');
 
 module.exports = {
-    create: (req, res, next) => {
+    create: async (req, res, next) => {
         const validation = options.create.validate(req.body);
 
         if (validation.error) {
             return res.status(400).json({ message: validation.error.message });
+        }
+
+        const user = await User.findOne({
+            attributes: ['id'],
+            where: { login: req.body.login }
+        });
+
+        if (user) {
+            return res.status(409).json({ message: 'This login is already in use' });
         }
 
         next();
