@@ -17,5 +17,4 @@ app.use((err, req, res, next) => {
     return res.status(500).json({ message: 'An unexpected error has occured, please try again later' });
 });
 
-
 module.exports = app;
