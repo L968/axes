@@ -19,14 +19,12 @@ module.exports = {
 
             const request_id = response.null;
 
-            for (let i = 0; i < resources.length; i++) {
-                const resource = resources[i];
-
-                const { resource_id, type } = resource;
+            for (const resource of resources) {
+                const { id, type } = resource;
 
                 await Request_Resources.create({
                     request_id,
-                    resource_id,
+                    resource_id: id,
                     type
                 }, { transaction });
             }

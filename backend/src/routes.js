@@ -17,7 +17,7 @@ routes.get('/resource', controllers.ResourceController.index);
 routes.post('/resource', authenticate, validators.ResourceValidator.create, controllers.ResourceController.create);
 routes.put('/resource/:id', authenticate, validators.ResourceValidator.update, controllers.ResourceController.update);
 
-routes.post('/request', controllers.RequestController.create);
+routes.post('/request', validators.RequestValidator.create, controllers.RequestController.create);
 
 routes.post('/session', validators.SessionValidator.create, controllers.SessionController.create);
 

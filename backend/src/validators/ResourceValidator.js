@@ -26,7 +26,7 @@ module.exports = {
 
         const resource = await Resource.findByPk(id);
 
-        if (resource == null) {
+        if (!resource) {
             return res.status(404).json({ message: 'Resource not found' });
         }
 

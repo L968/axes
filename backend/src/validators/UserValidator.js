@@ -2,6 +2,17 @@ const Joi = require('@hapi/joi');
 const User = require('../models/User');
 
 module.exports = {
+
+    detail: (req, res , next) => {
+        const validation = options.detail.validate({ id: req.params.id });
+
+        if (validation.error) {
+            return res.status(400).json({ message: validation.error.message });
+        }
+
+        next();
+    },
+
     create: async (req, res, next) => {
         const validation = options.create.validate(req.body);
 
@@ -21,15 +32,6 @@ module.exports = {
         next();
     },
 
-    detail: (req, res , next) => {
-        const validation = options.detail.validate({ id: req.params.id });
-
-        if (validation.error) {
-            return res.status(400).json({ message: validation.error.message });
-        }
-
-        next();
-    },
 }
 
 const options = {
