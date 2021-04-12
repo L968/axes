@@ -4,20 +4,18 @@ const Request_Resources = require('../models/Request_Resources');
 
 module.exports = {
 
-    async create(req, res) {
+    async create(request, response) {
         const transaction = await connection.transaction();
 
         try
         {
-            const { requester_user_id, requestee_user_id, resources } = req.body;
+            const { requester_user_id, requestee_user_id, resources } = request.body;
 
-            const response = await Request.create({
+            const { request_id: id } = await Request.create({
                 requester_user_id,
                 requestee_user_id,
                 status_id: 1
             }, { transaction });
-
-            const request_id = response.null;
 
             for (const resource of resources) {
                 const { id, type } = resource;
@@ -31,7 +29,7 @@ module.exports = {
 
             await transaction.commit();
 
-            return res.json({ request_id });
+            return response.json({ request_id });
         }
         catch (error)
         {

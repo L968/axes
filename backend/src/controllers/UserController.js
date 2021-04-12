@@ -2,49 +2,58 @@ const User = require('../models/User');
 
 module.exports = {
 
-    async index(req, res) {
+    async index(request, response) {
         const users = await User.findAll();
 
         if (users.length === 0) {
-            return res.status(404).json({ message: "There are no users registered in the system" });
+            return response.status(404).json({ message: "There are no users registered in the system" });
         }
 
-        return res.json(users);
+        return response.json(users);
     },
 
-    async detail(req, res) {
-        const { id } = req.params;
+    async detail(request, response) {
+        const { id } = request.params;
 
         const user = await User.findByPk(id);
 
         if (!user) {
-            return res.status(404).json({ message: 'User not found' });
+            return response.status(404).json({ message: 'User not found' });
         }
 
-        return res.json(user);
+        return response.json(user);
     },
 
-    async create(req, res) {
-        let { name, id_number, login, password, email, department_id } = req.body;
+    async create(request, response) {
+        try {
+            let { name, id_number, password, email, department_id } = request.body;
 
-        name = name.toUpperCase();
-        login = login.toLowerCase();
-        email = email.toLowerCase();
+            name = name.toUpperCase();
+            email = email.toLowerCase();
 
-        const response = await User.create({
-            name,
-            id_number,
-            login,
-            password,
-            email,
-            department_id
-        });
+            const { id } = await User.create({
+                name,
+                id_number,
+                password,
+                email,
+                department_id
+            });
 
-        return res.status(201).json({ id: response.null });
+            return response.status(201).json({ user_id: id });
+        } catch (error) {
+            if (error.name === 'SequelizeForeignKeyConstraintError') {
+                return response.status(404).json({ message: `This ${error.fields[0]} does not exist in our system` });
+            } else if (error.name === 'SequelizeUniqueConstraintError') {
+                const column = error.errors[0].path.replace('User.', '').replace('_', ' ');
+                return response.status(409).json({ message: `This ${column} is already in use` });
+            }
+
+            throw error;
+        }
     },
 
-    async update(req, res) {
-        res.send('NOT IMPLEMENTED USER UPDATE');
+    async update(request, response) {
+        response.send('NOT IMPLEMENTED USER UPDATE');
     },
 
 }

@@ -10,9 +10,7 @@ module.exports = {
         \`resource_id\`         INTEGER     NOT NULL,
         \`type\`                VARCHAR(50) NOT NULL,
         \`completed\`           BOOLEAN     NOT NULL CHECK (completed IN (0,1)) DEFAULT 0,
-        \`responsible_user_id\` INTEGER,
-        \`created_at\`          DATE        NOT NULL,
-        \`updated_at\`          DATE        NOT NULL
+        \`responsible_user_id\` INTEGER
       );
     `);
   },

@@ -5,7 +5,8 @@ class Request extends Model {
         super.init({
             id: {
                 type: DataTypes.INTEGER,
-                primaryKey: true
+                primaryKey: true,
+                autoIncrement: true,
             },
             requester_user_id:   DataTypes.INTEGER,
             requestee_user_id:   DataTypes.INTEGER,

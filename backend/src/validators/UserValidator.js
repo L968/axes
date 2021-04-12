@@ -3,33 +3,24 @@ const User = require('../models/User');
 
 module.exports = {
 
-    detail: (req, res , next) => {
-        const validation = options.detail.validate({ id: req.params.id });
+    detail: (request, response, next) => {
+        const validation = options.detail.validate({ id: request.params.id });
 
         if (validation.error) {
-            return res.status(400).json({ message: validation.error.message });
+            return response.status(400).json({ message: validation.error.message });
         }
 
-        next();
+        return next();
     },
 
-    create: async (req, res, next) => {
-        const validation = options.create.validate(req.body);
+    create: async (request, response, next) => {
+        const validation = options.create.validate(request.body);
 
         if (validation.error) {
-            return res.status(400).json({ message: validation.error.message });
+            return response.status(400).json({ message: validation.error.message });
         }
 
-        const user = await User.findOne({
-            attributes: ['id'],
-            where: { login: req.body.login }
-        });
-
-        if (user) {
-            return res.status(409).json({ message: 'This login is already in use' });
-        }
-
-        next();
+        return next();
     },
 
 }
@@ -37,10 +28,9 @@ module.exports = {
 const options = {
     create: Joi.object().keys({
         name:          Joi.string().required(),
-        id_number:     Joi.number().integer().required(),
-        login:         Joi.string().required().min(3),
+        id_number:     Joi.string().required(),
         password:      Joi.string().required().min(6),
-        email:         Joi.string().required().email(),
+        email:         Joi.string().email().allow(null),
         department_id: Joi.number().integer().required()
     }),
 

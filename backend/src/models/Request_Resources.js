@@ -5,7 +5,8 @@ class Request_Resources extends Model {
         super.init({
             id: {
                 type: DataTypes.INTEGER,
-                primaryKey: true
+                primaryKey: true,
+                autoIncrement: true,
             },
             request_id:          DataTypes.INTEGER,
             resource_id:         DataTypes.INTEGER,

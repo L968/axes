@@ -21,6 +21,6 @@ routes.post('/request', validators.RequestValidator.create, controllers.RequestC
 
 routes.post('/session', validators.SessionValidator.create, controllers.SessionController.create);
 
-routes.get('/authenticate', authenticate, (req, res) => res.json({ isAuthenticated: true, user_id: req.user_id }));
+routes.get('/authenticate', authenticate, (request, response) => response.json({ isAuthenticated: true, user_id: request.user_id }));
 
 module.exports = routes;

@@ -10,9 +10,7 @@ module.exports = {
         \`requestee_user_id\`   INTEGER NOT NULL,
         \`status_id\`           INTEGER NOT NULL,
         \`cancellation_reason\` TEXT,
-        \`cancellation_date\`   DATE,
-        \`created_at\`          DATE    NOT NULL,
-        \`updated_at\`          DATE    NOT NULL
+        \`cancellation_date\`   DATE
       );
     `);
   },

@@ -1,14 +1,14 @@
 const Joi = require('@hapi/joi');
 
 module.exports = {
-    create: (req, res, next) => {
-        const validation = options.create.validate(req.body);
+    create: (request, response, next) => {
+        const validation = options.create.validate(request.body);
 
         if (validation.error) {
-            return res.status(400).json({ message: validation.error.message });
+            return response.status(400).json({ message: validation.error.message });
         }
 
-        next();
+        return next();
     },
 }
 

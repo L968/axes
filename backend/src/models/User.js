@@ -5,17 +5,17 @@ class User extends Model {
         super.init({
             id: {
                 type: DataTypes.INTEGER,
-                primaryKey: true
+                primaryKey: true,
+                autoIncrement: true,
             },
             name:                DataTypes.STRING,
-            id_number:           DataTypes.INTEGER,
-            login:               DataTypes.STRING,
+            id_number:           DataTypes.STRING,
             password:            DataTypes.STRING,
             password_expiration: DataTypes.DATE,
             email:               DataTypes.STRING,
             department_id:       DataTypes.INTEGER,
             active:              DataTypes.BOOLEAN
-        }, { sequelize: connection });
+        }, { sequelize: connection, });
     }
 }
 

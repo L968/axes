@@ -10,9 +10,7 @@ module.exports = {
         \`description\`        TEXT,
         \`type_id\`            INTEGER      NOT NULL,
         \`parent_resource_id\` INTEGER,
-        \`active\`             BOOLEAN      NOT NULL CHECK (active IN (0,1)) DEFAULT 1,
-        \`created_at\`         DATE         NOT NULL,
-        \`updated_at\`         DATE         NOT NULL
+        \`active\`             BOOLEAN      NOT NULL CHECK (active IN (0,1)) DEFAULT 1
       );
     `);
   },

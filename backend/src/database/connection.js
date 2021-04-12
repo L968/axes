@@ -7,11 +7,9 @@ const config = process.env.NODE_ENV === 'test' ? dbConfigs.test : dbConfigs.deve
 
 const connection = new Sequelize(config);
 
-const modelsArr = Object.entries(models);
+const modelsArray = Object.entries(models);
 
-for (let i = 0; i < modelsArr.length; i++) {
-    const model = modelsArr[i];
-
+for (const model of modelsArray) {
     model[1].init(connection);
 }
 

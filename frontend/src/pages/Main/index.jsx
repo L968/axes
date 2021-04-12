@@ -28,7 +28,7 @@ export default function Main(props) {
     }, [props.user_id, user_id])
 
     return (
-        <div className="main-container container">
+        <div className="main-container">
             <Header />
             <h1>Main page</h1>
             <ul>
