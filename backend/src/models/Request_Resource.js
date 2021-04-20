@@ -1,6 +1,6 @@
 const { Model, DataTypes } = require('sequelize');
 
-class Request_Resources extends Model {
+class Request_Resource extends Model {
     static init(connection){
         super.init({
             id: {
@@ -10,11 +10,11 @@ class Request_Resources extends Model {
             },
             request_id:          DataTypes.INTEGER,
             resource_id:         DataTypes.INTEGER,
-            type:                DataTypes.STRING,
+            include_exclude:     DataTypes.STRING,
             completed:           DataTypes.BOOLEAN,
             responsible_user_id: DataTypes.INTEGER
         }, { sequelize: connection });
     }
 }
 
-module.exports = Request_Resources;
+module.exports = Request_Resource;

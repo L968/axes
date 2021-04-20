@@ -1,7 +1,8 @@
 const Joi = require('@hapi/joi');
 
 module.exports = {
-    create: (request, response, next) => {
+
+    create: async (request, response, next) => {
         const validation = options.create.validate(request.body);
 
         if (validation.error) {
@@ -10,11 +11,12 @@ module.exports = {
 
         return next();
     },
+
 }
 
 const options = {
     create: Joi.object().keys({
-        id_number: Joi.string().required(),
-        password:  Joi.string().required(),
+        name:   Joi.string().required(),
+        number: Joi.string().required(),
     }),
 }

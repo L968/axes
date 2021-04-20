@@ -1,21 +1,23 @@
 'use strict';
 
-module.exports = {
-  up: (queryInterface, Sequelize) => {
-    return queryInterface.sequelize.query(`
-      create table \`resource\`
-      (
-        \`id\`                 INTEGER      NOT NULL PRIMARY KEY AUTOINCREMENT,
-        \`name\`               VARCHAR(255) NOT NULL UNIQUE,
-        \`description\`        TEXT,
-        \`type_id\`            INTEGER      NOT NULL,
-        \`parent_resource_id\` INTEGER,
-        \`active\`             BOOLEAN      NOT NULL CHECK (active IN (0,1)) DEFAULT 1
-      );
-    `);
-  },
+const { DataTypes } = require('sequelize');
 
-  down: (queryInterface, Sequelize) => {
-    return queryInterface.dropTable('resource');
-  }
+module.exports = {
+    up: (queryInterface, Sequelize) => {
+        return queryInterface.createTable('resource', {
+            id:                 { type: DataTypes.INTEGER, primaryKey: true, autoIncrement: true, },
+            name:               { type: DataTypes.STRING,  allowNull: false, unique: true },
+            description:        { type: DataTypes.STRING,  allowNull: true, },
+            responsible_department_id: { type: DataTypes.INTEGER, allowNull: false, },
+            parent_resource_id: { type: DataTypes.INTEGER, allowNull: true, },
+            active:             { type: DataTypes.BOOLEAN, allowNull: true, defaultValue: 1},
+        },
+        {
+            charset: 'utf8',
+        });
+    },
+
+    down: (queryInterface, Sequelize) => {
+        return queryInterface.dropTable('resource');
+    }
 }

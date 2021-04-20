@@ -13,4 +13,9 @@ for (const model of modelsArray) {
     model[1].init(connection);
 }
 
+const User = require('../models/User');
+const Department = require('../models/Department');
+
+User.belongsTo(Department, { foreignKey: 'department_id' });
+
 module.exports = connection;

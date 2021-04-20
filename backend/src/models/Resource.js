@@ -10,7 +10,7 @@ class Resource extends Model {
             },
             name:               DataTypes.STRING,
             description:        DataTypes.TEXT,
-            type_id:            DataTypes.INTEGER,
+            responsible_department_id: DataTypes.INTEGER,
             parent_resource_id: DataTypes.STRING,
             active:             DataTypes.BOOLEAN
         }, { sequelize: connection });

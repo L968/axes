@@ -1,23 +1,25 @@
 'use strict';
 
-module.exports = {
-  up: (queryInterface, Sequelize) => {
-    return queryInterface.sequelize.query(`
-      create table \`user\`
-      (
-        \`id\`                  INTEGER      NOT NULL PRIMARY KEY AUTOINCREMENT,
-        \`name\`                VARCHAR(255) NOT NULL,
-        \`id_number\`           VARCHAR(255) NOT NULL UNIQUE,
-        \`password\`            VARCHAR(255) NOT NULL,
-        \`password_expiration\` DATE         NOT NULL DEFAULT (DATETIME('now', 'localtime', '1 month')),
-        \`email\`               VARCHAR(255),
-        \`department_id\`       FLOAT        NOT NULL,
-        \`active\`              BOOLEAN      NOT NULL CHECK (active IN (0,1)) DEFAULT 1
-      );
-    `);
-  },
+const { DataTypes } = require('sequelize');
 
-  down: (queryInterface, Sequelize) => {
-    return queryInterface.dropTable('user');
-  }
+module.exports = {
+    up: (queryInterface, Sequelize) => {
+        return queryInterface.createTable('user', {
+            id:                  { type: DataTypes.INTEGER, primaryKey: true, autoIncrement: true, },
+            name:                { type: DataTypes.STRING,  allowNull: false, },
+            id_number:           { type: DataTypes.STRING,  allowNull: false, unique: true },
+            password:            { type: DataTypes.STRING,  allowNull: false, },
+            password_expiration: { type: DataTypes.DATE,    allowNull: false, defaultValue: Sequelize.literal('CURRENT_TIMESTAMP') },
+            email:               { type: DataTypes.STRING,  allowNull: true, unique: true },
+            department_id:       { type: DataTypes.INTEGER, allowNull: false, references: { model: 'department', key: 'id', }, },
+            active:              { type: DataTypes.BOOLEAN, allowNull: false, defaultValue: 1 },
+        },
+        {
+            charset: 'utf8',
+        });
+    },
+
+    down: (queryInterface, Sequelize) => {
+        return queryInterface.dropTable('user');
+    }
 };

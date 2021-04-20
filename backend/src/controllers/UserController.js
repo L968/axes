@@ -29,20 +29,24 @@ module.exports = {
             let { name, id_number, password, email, department_id } = request.body;
 
             name = name.toUpperCase();
-            email = email.toLowerCase();
+            id_number = id_number.toUpperCase();
+
+            if (email) {
+                email = email.toLowerCase();
+            }
 
             const { id } = await User.create({
                 name,
                 id_number,
                 password,
                 email,
-                department_id
+                department_id,
             });
 
             return response.status(201).json({ user_id: id });
         } catch (error) {
             if (error.name === 'SequelizeForeignKeyConstraintError') {
-                return response.status(404).json({ message: `This ${error.fields[0]} does not exist in our system` });
+                return response.status(404).json({ message: `This department does not exist in our system` });
             } else if (error.name === 'SequelizeUniqueConstraintError') {
                 const column = error.errors[0].path.replace('User.', '').replace('_', ' ');
                 return response.status(409).json({ message: `This ${column} is already in use` });

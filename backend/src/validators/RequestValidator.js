@@ -20,7 +20,7 @@ const options = {
         requestee_user_id: Joi.number().integer().required(),
         resources: Joi.array().required().items(Joi.object({
             id:    Joi.number().integer().required(),
-            type:  Joi.any().valid('INCLUDE', 'EXCLUDE')
-        }))
+            include_exclude:  Joi.any().valid('I', 'E')
+        })),
     }),
 }

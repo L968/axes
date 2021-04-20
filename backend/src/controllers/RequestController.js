@@ -1,6 +1,6 @@
 const connection = require('../database/connection');
 const Request = require('../models/Request');
-const Request_Resources = require('../models/Request_Resources');
+const Request_Resource = require('../models/Request_Resource');
 
 module.exports = {
 
@@ -11,25 +11,27 @@ module.exports = {
         {
             const { requester_user_id, requestee_user_id, resources } = request.body;
 
-            const { request_id: id } = await Request.create({
+            const _request = await Request.create({
                 requester_user_id,
                 requestee_user_id,
                 status_id: 1
             }, { transaction });
 
-            for (const resource of resources) {
-                const { id, type } = resource;
+            console.log(_request.requester_user_id);
 
-                await Request_Resources.create({
-                    request_id,
-                    resource_id: id,
-                    type
+            for (const resource of resources) {
+                const { id: resource_id, include_exclude } = resource;
+
+                await Request_Resource.create({
+                    request_id: _request.id,
+                    resource_id: resource_id,
+                    include_exclude
                 }, { transaction });
             }
 
             await transaction.commit();
 
-            return response.json({ request_id });
+            return response.json({ request_id: _request.id });
         }
         catch (error)
         {

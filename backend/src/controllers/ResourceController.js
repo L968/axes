@@ -37,7 +37,7 @@ module.exports = {
             active
         },
         {
-            where: { resource_id: id }
+            where: { id: id }
         });
 
         return response.json({ name, description, type_id, parent_resource_id, active });
